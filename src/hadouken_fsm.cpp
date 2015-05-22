@@ -1,4 +1,4 @@
-#include "src/headers/hadouken.h"
+#include "src/headers/hadouken_fsm.h"
 
 namespace open_hadouken {
 

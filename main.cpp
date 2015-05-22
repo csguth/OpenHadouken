@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "src/headers/game.h"
 #include "src/headers/keyboard.h"
-#include "src/headers/hadouken.h"
+#include "src/headers/hadouken_fsm.h"
 
 int main()
 {

@@ -9,7 +9,7 @@ CONFIG += c++11
 SOURCES += main.cpp \
     src/game.cpp \
     src/keyboard.cpp \
-    src/hadouken.cpp
+    src/hadouken_fsm.cpp
 
 LIBS += -lsfml-graphics -lsfml-window -lsfml-system
 
@@ -19,5 +19,5 @@ qtcAddDeployment()
 HEADERS += \
     src/headers/game.h \
     src/headers/keyboard.h \
-    src/headers/hadouken.h
+    src/headers/hadouken_fsm.h
 
