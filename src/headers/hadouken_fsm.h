@@ -3,7 +3,7 @@
 
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Clock.hpp>
-#include <iostream>
+#include "keyboard.h"
 
 namespace open_hadouken {
 
@@ -20,7 +20,7 @@ public:
     hadouken_fsm();
     ~hadouken_fsm();
 
-    bool input(const std::pair<sf::Keyboard::Key, bool> &key);
+    bool input(const key_pressed &key);
 };
 
 }

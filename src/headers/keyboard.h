@@ -10,10 +10,11 @@ namespace open_hadouken {
 class key_pressed
 {
     sf::Keyboard::Key _key;
-    bool _up;
+    bool _down;
 public:
-    key_pressed(sf::Keyboard::Key key, bool up);
+    key_pressed(sf::Keyboard::Key key, bool down);
     sf::Keyboard::Key key() const { return _key; }
+    bool down() const { return _down; }
 };
 
 enum class key {
@@ -24,7 +25,7 @@ class keyboard
 {
 public:
     keyboard();
-    std::pair<sf::Keyboard::Key, bool> event(const sf::Event &event);
+    key_pressed event(const sf::Event &event);
 };
 
 }
