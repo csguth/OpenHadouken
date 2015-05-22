@@ -2,68 +2,66 @@
 
 namespace open_hadouken {
 
-hadouken::state* hadouken::state::state::WAITING = new hadouken::waiting_state;
-hadouken::state* hadouken::state::state::DOWN = new hadouken::down_state;
-hadouken::state* hadouken::state::state::QUARTER_CYCLE = new hadouken::quarter_cycle_state;
-hadouken::state* hadouken::state::state::FRONT = new hadouken::front_state;
-hadouken::state* hadouken::state::state::FINAL = new hadouken::final_state;
+hadouken::waiting_state* hadouken::waiting_state::_instance = nullptr;
+hadouken::down_state* hadouken::down_state::_instance = nullptr;
+hadouken::quarter_cycle_state* hadouken::quarter_cycle_state::_instance = nullptr;
+hadouken::front_state* hadouken::front_state::_instance = nullptr;
+hadouken::final_state* hadouken::final_state::_instance = nullptr;
 
-hadouken::fsm::fsm():  _state(state::WAITING)
+hadouken::fsm::fsm():  _state(waiting_state::instance())
 {
-
 }
 
 hadouken::fsm::~fsm()
 {
-
 }
 
 bool hadouken::fsm::input(const key_pressed &key)
 {
     _state = _state->input(key);
-    if(_state == state::FINAL)
+    if(_state == final_state::instance())
     {
-        _state = state::WAITING;
+        _state = waiting_state::instance();
         return true;
     }
     return false;
 }
 
-hadouken::state *hadouken::waiting_state::input(const key_pressed &key)
+const hadouken::state *hadouken::waiting_state::input(const key_pressed &key) const
 {
-    hadouken::state* result = hadouken::state::WAITING;
+    const hadouken::state* result = waiting_state::instance();
     if(key.key() == sf::Keyboard::S && key.down())
-        result = hadouken::state::DOWN;
+        result = down_state::instance();
     return result;
 }
 
-hadouken::state *hadouken::down_state::input(const key_pressed &key)
+const hadouken::state *hadouken::down_state::input(const key_pressed &key) const
 {
-    hadouken::state* result = hadouken::state::WAITING;
+    const hadouken::state* result = waiting_state::instance();
     if(key.key() == sf::Keyboard::D && key.down())
-        result = hadouken::state::QUARTER_CYCLE;
+        result = quarter_cycle_state::instance();
     return result;
 }
 
-hadouken::state *hadouken::quarter_cycle_state::input(const key_pressed &key)
+const hadouken::state *hadouken::quarter_cycle_state::input(const key_pressed &key) const
 {
-    hadouken::state* result = hadouken::state::WAITING;
+    const hadouken::state* result = waiting_state::instance();
     if(key.key() == sf::Keyboard::S && !key.down())
-        result = hadouken::state::FRONT;
+        result = front_state::instance();
     return result;
 }
 
-hadouken::state *hadouken::front_state::input(const key_pressed &key)
+const hadouken::state *hadouken::front_state::input(const key_pressed &key) const
 {
-    hadouken::state* result = hadouken::state::WAITING;
+    const hadouken::state* result = waiting_state::instance();
     if(key.key() == sf::Keyboard::K && key.down())
-        result = hadouken::state::FINAL;
+        result = final_state::instance();
     return result;
 }
 
-hadouken::state *hadouken::final_state::input(const key_pressed &key)
+const hadouken::state *hadouken::final_state::input(const key_pressed &key) const
 {
-    return hadouken::state::WAITING;
+    return waiting_state::instance();
 }
 
 }
