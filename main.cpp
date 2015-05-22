@@ -9,7 +9,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Hadouken :) by csguth");
     open_hadouken::keyboard keyboard;
-    open_hadouken::hadouken_fsm hadouken;
+    open_hadouken::hadouken::fsm hadouken;
     while (window.isOpen())
     {
         sf::Event event;

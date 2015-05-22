@@ -4,24 +4,65 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Clock.hpp>
 #include "keyboard.h"
+#include <iostream>
 
 namespace open_hadouken {
 
-class hadouken_fsm
+namespace hadouken {
+class state
 {
-    enum class state {
-        WAITING, DOWN, QUARTER_CYCLE, FRONT
-    };
+public:
+    static state* WAITING;
+    static state* DOWN;
+    static state* QUARTER_CYCLE;
+    static state* FRONT;
+    static state* FINAL;
+    virtual state* input(const key_pressed &key) = 0;
+};
 
-    state _state;
+class waiting_state : public state
+{
+public:
+    state* input(const key_pressed &key);
+};
+class down_state : public state
+{
+public:
+    state* input(const key_pressed &key);
+};
+
+class quarter_cycle_state : public state
+{
+public:
+    state* input(const key_pressed &key);
+};
+
+class front_state : public state
+{
+public:
+    state* input(const key_pressed &key);
+};
+
+class final_state : public state
+{
+public:
+    state* input(const key_pressed &key);
+};
+
+
+
+class fsm
+{
+    state *_state;
 
 public:
 
-    hadouken_fsm();
-    ~hadouken_fsm();
+    fsm();
+    ~fsm();
 
     bool input(const key_pressed &key);
 };
+}
 
 }
 
